@@ -6,8 +6,8 @@ import 'package:flame/palette.dart';
 import 'package:flame/effects.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:flutter/material.dart';
-import 'package:tile_game/player.dart';
-import 'package:tile_game/player_item.dart';
+import 'package:flutter_flame_game/player.dart';
+import 'package:flutter_flame_game/player_item.dart';
 
 const worldWidth = 1440.0;
 const worldHeight = 720.0;

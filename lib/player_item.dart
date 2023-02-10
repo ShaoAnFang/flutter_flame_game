@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:tile_game/player.dart';
+import 'package:flutter_flame_game/player.dart';
 
 class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCallbacks {
   final Sprite item;
