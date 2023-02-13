@@ -49,12 +49,13 @@ class IFRpgGame extends FlameGame with HasDraggables, HasCollisionDetection {
     for (var element in enemies!.objects) {
       switch (element.type) {
         case 'gt':
-          add(SpriteComponent(sprite: tank, position: Vector2(element.x, element.y), size: Vector2(16, 16)));
+          // add(SpriteComponent(sprite: tank, position: Vector2(element.x, element.y), size: Vector2(16, 16)));
+          add(PlayerItem('gt', item: tank, position: Vector2(element.x, element.y), size: Vector2(16, 16)));
           break;
         case 'power':
           add(PlayerItem('power', item: powerUp, position: Vector2(element.x, element.y), size: Vector2(16, 16))
             ..anchor = Anchor.center
-            ..add(ScaleEffect.by(Vector2(1.5, 1.5), EffectController(duration: 1, reverseDuration: 1, infinite: true))));
+            ..add(ScaleEffect.by(Vector2(2.5, 2.5), EffectController(duration: 1, reverseDuration: 1, infinite: true))));
           break;
         case 'shield':
           add(PlayerItem('shield', item: shield, position: Vector2(element.x, element.y), size: Vector2(16, 16))

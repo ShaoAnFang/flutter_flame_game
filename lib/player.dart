@@ -7,8 +7,8 @@ import '../main.dart';
 
 class JoystickPlayer extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCallbacks {
   double maxSpeed = 100.0;
-
   final JoystickComponent joystick;
+  bool hasShield = false;
 
   JoystickPlayer(this.joystick) : super(size: Vector2(32, 24)) {
     // add(RectangleHitbox(position: Vector2(1, 1)));
@@ -18,35 +18,38 @@ class JoystickPlayer extends SpriteComponent with HasGameRef, GestureHitboxes, C
 
   addPowerUps() async {
     var planes = await Flame.images.load('ships_packed.png');
-
     add(SpriteComponent(sprite: Sprite(planes, srcSize: Vector2(24, 29), srcPosition: Vector2(4, 39)), priority: 2)..position = Vector2(-28, 4));
     add(SpriteComponent(sprite: Sprite(planes, srcSize: Vector2(24, 29), srcPosition: Vector2(4, 39)), priority: 2)..position = Vector2(36, 4));
   }
 
+  final shieldComponents = [
+    CircleComponent(position: Vector2(15, 15), anchor: Anchor.center, radius: 30, paint: Paint()..color = Colors.lightBlueAccent.withAlpha(100)),
+    CircleComponent(
+        position: Vector2(15, 15),
+        anchor: Anchor.center,
+        radius: 20,
+        paint: Paint()
+          ..color = Colors.purple.withAlpha(30)
+          ..strokeWidth = 6
+          ..style = PaintingStyle.stroke),
+    CircleComponent(
+        position: Vector2(15, 15),
+        anchor: Anchor.center,
+        radius: 22,
+        paint: Paint()
+          ..color = Colors.orangeAccent.withAlpha(120)
+          ..strokeWidth = 2
+          ..style = PaintingStyle.stroke),
+  ];
+
   addShield() {
-    add(
-      CircleComponent(position: Vector2(15, 15), anchor: Anchor.center, radius: 30, paint: Paint()..color = Colors.lightBlueAccent.withAlpha(100)),
-    );
-    add(
-      CircleComponent(
-          position: Vector2(15, 15),
-          anchor: Anchor.center,
-          radius: 20,
-          paint: Paint()
-            ..color = Colors.purple.withAlpha(30)
-            ..strokeWidth = 6
-            ..style = PaintingStyle.stroke),
-    );
-    add(
-      CircleComponent(
-          position: Vector2(15, 15),
-          anchor: Anchor.center,
-          radius: 22,
-          paint: Paint()
-            ..color = Colors.orangeAccent.withAlpha(120)
-            ..strokeWidth = 2
-            ..style = PaintingStyle.stroke),
-    );
+    addAll(shieldComponents);
+    hasShield = true;
+  }
+
+  removeShield() {
+    if (hasShield) removeAll(shieldComponents);
+    hasShield = false;
   }
 
   @override

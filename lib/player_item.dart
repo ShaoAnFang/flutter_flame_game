@@ -40,11 +40,17 @@ class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, Colli
         case 'shield':
           {
             other.addShield();
+
             break;
           }
         case 'power':
           {
             other.addPowerUps();
+            break;
+          }
+        case 'gt':
+          {
+            other.removeShield();
             break;
           }
       }
