@@ -1,8 +1,8 @@
 import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter_flame_game/player.dart';
+import 'main.dart';
 
 class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCallbacks {
   final Sprite item;
@@ -28,24 +28,24 @@ class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, Colli
           anchor: anchor,
           priority: priority,
         ) {
-    // add(RectangleHitbox(position: Vector2(1, 1)));
     add(RectangleHitbox());
   }
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, dynamic other) {
     super.onCollision(intersectionPoints, other);
-    if (other is JoystickPlayer) {
+    if (other is Player) {
       switch (type) {
         case 'shield':
           {
             other.addShield();
-
+            gameRef.remove(this);
             break;
           }
         case 'power':
           {
             other.addPowerUps();
+            gameRef.remove(this);
             break;
           }
         case 'gt':
@@ -54,7 +54,6 @@ class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, Colli
             break;
           }
       }
-      gameRef.remove(this);
     }
   }
 }
