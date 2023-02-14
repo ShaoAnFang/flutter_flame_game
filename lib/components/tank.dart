@@ -1,16 +1,13 @@
 import 'dart:async' as async;
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
-import 'package:flutter_flame_game/bullets/enemy_bullet.dart';
-import 'package:flutter_flame_game/bullets/plane_bullet.dart';
-import 'package:flutter_flame_game/player.dart';
-
-import 'bullets/mixins/weapon.dart';
+import 'package:flutter_flame_game/components/bullets/enemy_bullet.dart';
+import 'package:flutter_flame_game/components/bullets/plane_bullet.dart';
+import 'package:flutter_flame_game/components/player.dart';
 import 'bullets/mixins/bullets.dart';
+import 'bullets/mixins/weapon.dart';
 
 class Tank extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCallbacks, Weapon, BulletsMixin {
   // final Sprite item;
@@ -84,12 +81,12 @@ class Tank extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCa
       );
       gameRef.add(animationComponent);
       removeFromParent();
-      timers.first.cancel();
-      timers.clear();
+      // timers.first.cancel();
+      // timers.clear();
     }
 
     if (other is Player) {
-      other.removeShield();
+      // other.removeShield();
     }
   }
 }

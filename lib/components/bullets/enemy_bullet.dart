@@ -1,13 +1,13 @@
 import 'dart:async' as async;
 import 'dart:math';
-
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_flame_game/bullets/mixins/bullets.dart';
-import 'package:flutter_flame_game/player.dart';
+import 'package:flutter_flame_game/components/player.dart';
+
+import 'mixins/bullets.dart';
 
 class EnemyBullet extends SpriteComponent with CollisionCallbacks, BulletsMixin, HasGameRef {
   final double maxSpeed;
@@ -18,7 +18,7 @@ class EnemyBullet extends SpriteComponent with CollisionCallbacks, BulletsMixin,
   final int timeForHomingSeconds;
 
   EnemyBullet(this.player, this.target, this.maxSpeed, {this.homing = false, this.timeForHomingSeconds = 3}) : super(size: Vector2(8, 12)) {
-    damage = 1;
+    damage = 0;
     add(RectangleHitbox());
     anchor = Anchor.center;
   }
@@ -30,6 +30,7 @@ class EnemyBullet extends SpriteComponent with CollisionCallbacks, BulletsMixin,
     var tiles = await Flame.images.load('tiles_packed.png');
     sprite = Sprite(tiles, srcSize: Vector2(8, 12), srcPosition: Vector2(4, 18));
     if (homing) {
+      // timeForHomingSeconds
       async.Timer.periodic(Duration(seconds: timeForHomingSeconds), (timer) {
         homing = false;
         add(ColorEffect(Colors.deepOrange.withOpacity(0.4), const Offset(0.5, 0.5), EffectController(duration: 1)));
@@ -43,10 +44,12 @@ class EnemyBullet extends SpriteComponent with CollisionCallbacks, BulletsMixin,
     super.update(dt);
 
     if (homing) {
+      //敵人子彈追蹤玩家
       angle = atan2(player.y - y, player.x - x) + pi / 2;
       moveAlongLine(source, player.position, maxSpeed * dt);
       target = player.position;
     } else {
+      //homing結束後 沿著原先記錄的角度,讓子彈沿著原角度向前走
       moveWithAngle(angle - pi / 2, maxSpeed * dt * 3);
     }
     if (offScreen(gameRef)) {

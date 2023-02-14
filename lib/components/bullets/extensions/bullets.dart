@@ -21,7 +21,7 @@ extension BulletsExtension on PositionComponent {
   async.Timer shoot2({
     Vector2? scale,
     Color? color,
-    int bulletSpeed = 1000,
+    int bulletSpeed = 100,
   }) {
     return async.Timer.periodic(Duration(milliseconds: bulletSpeed), (timer) {
       var bullet = PlaneBullet(angle, angle - pi / 2)

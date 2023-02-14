@@ -5,8 +5,8 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_flame_game/bullets/mixins/bullets.dart';
-import 'package:flutter_flame_game/player.dart';
+import 'package:flutter_flame_game/components/player.dart';
+import 'mixins/bullets.dart';
 
 class AnimatedEnemyBullet extends SpriteAnimationComponent with CollisionCallbacks, BulletsMixin, HasGameRef {
   final double maxSpeed;

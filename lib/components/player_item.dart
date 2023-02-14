@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter_flame_game/player.dart';
-import 'main.dart';
+import 'package:flutter_flame_game/components/player.dart';
+import '../main.dart';
 
 class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, CollisionCallbacks {
   final Sprite item;
@@ -39,21 +39,15 @@ class PlayerItem extends SpriteComponent with HasGameRef, GestureHitboxes, Colli
         case 'shield':
           {
             other.addShield();
-            gameRef.remove(this);
             break;
           }
         case 'power':
           {
             other.addPowerUps();
-            gameRef.remove(this);
-            break;
-          }
-        case 'gt':
-          {
-            other.removeShield();
             break;
           }
       }
+      removeFromParent();
     }
   }
 }

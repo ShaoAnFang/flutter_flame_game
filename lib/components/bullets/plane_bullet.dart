@@ -1,11 +1,10 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter_flame_game/components/tank.dart';
 // import 'package:rpg_flame/components/boss.dart';
 // import 'package:rpg_flame/components/bullets/mixins/bullets.dart';
 // import 'package:rpg_flame/components/tank.dart';
-
-import '../tank.dart';
 import 'mixins/bullets.dart';
 
 class PlaneBullet extends SpriteComponent with HasGameRef, CollisionCallbacks, BulletsMixin {
@@ -16,7 +15,7 @@ class PlaneBullet extends SpriteComponent with HasGameRef, CollisionCallbacks, B
   PlaneBullet(this.initialAngle, this.targetAngle) : super(size: Vector2(12, 14), anchor: Anchor.center) {
     angle = initialAngle;
     add(RectangleHitbox());
-    damage = 2;
+    damage = 5;
   }
 
   @override
